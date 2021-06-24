@@ -27,6 +27,7 @@ const isPathClean = (srcToDestPath, squares) => {
   }
   return isLegal;
 };
+
 const isNotInSafeHouse = (squares, dest) => {
   let isLegal = true;
 
@@ -37,6 +38,9 @@ const isNotInSafeHouse = (squares, dest) => {
       isLegal = false;
     }
     if (dest === 13) {
+      isLegal = false;
+    }
+    if (dest === 17) {
       isLegal = false;
     }
     if (dest === 21) {
@@ -51,8 +55,10 @@ const isNotInSafeHouse = (squares, dest) => {
     if (dest === 38) {
       isLegal = false;
     }
+    if (dest === 42) {
+      isLegal = false;
+    }
     if (dest === 46) {
-      console.log("im at 46");
       isLegal = false;
     }
     if (dest === 48) {
@@ -60,7 +66,6 @@ const isNotInSafeHouse = (squares, dest) => {
     }
   }
 
-  console.log("is it in safe house or not??" + isLegal);
   return isLegal;
 };
 

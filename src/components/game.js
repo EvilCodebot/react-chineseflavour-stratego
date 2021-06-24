@@ -21,9 +21,6 @@ export default class Game extends React.Component {
   handleClick(i) {
     const squares = [...this.state.squares];
 
-    console.log("sourceSelection: " + this.state.sourceSelection);
-    console.log("i: " + i);
-
     if (this.state.sourceSelection === -1) {
       if (!squares[i] || squares[i].player !== this.state.player) {
         this.setState({
@@ -69,102 +66,168 @@ export default class Game extends React.Component {
 
       if (isMovePossible) {
         if (squares[i] !== null) {
-          console.log("state.player: " + this.state.player);
+          if (squares[i].type === "flag") {
+            if (this.state.player === 1) {
+              // check if all black mines are gone
 
-          if (this.state.player === 1) {
-            if (
-              squares[i].value === squares[this.state.sourceSelection].value
-            ) {
-              blackFallenSoldiers.push(squares[i]);
-              whiteFallenSoldiers.push(squares[this.state.sourceSelection]);
+              let fallenMine = 0;
 
-              squares[i] = null;
-              squares[this.state.sourceSelection] = null;
+              for (let i = 0; i < this.state.blackFallenSoldiers.length; i++) {
+                if (this.state.blackFallenSoldiers[i].type === "mine") {
+                  fallenMine += 1;
+                }
+              }
 
-              this.updateThis(
-                squares,
-                whiteFallenSoldiers,
-                blackFallenSoldiers
-              );
-            } else if (
-              // white initiates attack, loses
-              squares[i].value > squares[this.state.sourceSelection].value
-            ) {
-              whiteFallenSoldiers.push(squares[this.state.sourceSelection]);
+              if (fallenMine === 3) {
+                // if all mines are gone, flag can be attacked
+                blackFallenSoldiers.push(squares[i]);
 
-              squares[this.state.sourceSelection] = null;
+                squares[i] = squares[this.state.sourceSelection];
+                squares[this.state.sourceSelection] = null;
 
-              this.updateThis(
-                squares,
-                whiteFallenSoldiers,
-                blackFallenSoldiers
-              );
-            } else if (
-              // white initiates attack, wins
-              squares[i].value < squares[this.state.sourceSelection].value
-            ) {
-              blackFallenSoldiers.push(squares[i]);
+                this.updateThis(
+                  squares,
+                  whiteFallenSoldiers,
+                  blackFallenSoldiers
+                );
+                return;
+              } else {
+                return;
+              }
+            } else if (this.state.player === 2) {
+              // check if all white mines are gone
 
-              squares[i] = squares[this.state.sourceSelection];
-              squares[this.state.sourceSelection] = null;
+              let fallenMine = 0;
 
-              this.updateThis(
-                squares,
-                whiteFallenSoldiers,
-                blackFallenSoldiers
-              );
-            } else {
-              squares[i] = squares[this.state.sourceSelection];
-              squares[this.state.sourceSelection] = null;
+              for (let i = 0; i < this.state.whiteFallenSoldiers.length; i++) {
+                if (this.state.whiteFallenSoldiers[i].type === "mine") {
+                  fallenMine += 1;
+                }
+              }
+
+              if (fallenMine === 3) {
+                // if all mines are gone, flag can be attacked
+                whiteFallenSoldiers.push(squares[i]);
+
+                squares[i] = squares[this.state.sourceSelection];
+                squares[this.state.sourceSelection] = null;
+
+                this.updateThis(
+                  squares,
+                  whiteFallenSoldiers,
+                  blackFallenSoldiers
+                );
+                return;
+              } else {
+                return;
+              }
             }
           }
 
-          if (this.state.player === 2) {
-            if (
-              squares[i].value === squares[this.state.sourceSelection].value
-            ) {
-              blackFallenSoldiers.push(squares[this.state.sourceSelection]);
+          if (
+            squares[i].type === "mine" &&
+            squares[this.state.sourceSelection].type === "engineer"
+          ) {
+            //engineer live, mine die
+            if (this.state.player === 1) {
+              blackFallenSoldiers.push(squares[i]);
+            } else if (this.state.player === 2) {
               whiteFallenSoldiers.push(squares[i]);
-
-              squares[i] = null;
-              squares[this.state.sourceSelection] = null;
-
-              this.updateThis(
-                squares,
-                whiteFallenSoldiers,
-                blackFallenSoldiers
-              );
-            } else if (
-              // black initiates attack, loses
-              squares[i].value > squares[this.state.sourceSelection].value
-            ) {
-              blackFallenSoldiers.push(squares[this.state.sourceSelection]);
-
-              squares[this.state.sourceSelection] = null;
-
-              this.updateThis(
-                squares,
-                whiteFallenSoldiers,
-                blackFallenSoldiers
-              );
-            } else if (
-              // black initiates attack, wins
-              squares[i].value < squares[this.state.sourceSelection].value
-            ) {
-              whiteFallenSoldiers.push(squares[i]);
-
-              squares[i] = squares[this.state.sourceSelection];
-              squares[this.state.sourceSelection] = null;
-
-              this.updateThis(
-                squares,
-                whiteFallenSoldiers,
-                blackFallenSoldiers
-              );
-            } else {
-              squares[i] = squares[this.state.sourceSelection];
-              squares[this.state.sourceSelection] = null;
             }
+
+            squares[i] = squares[this.state.sourceSelection];
+            squares[this.state.sourceSelection] = null;
+
+            this.updateThis(squares, whiteFallenSoldiers, blackFallenSoldiers);
+
+            return;
+          }
+
+          if (
+            squares[i].type === "mine" &&
+            squares[this.state.sourceSelection].type === "bomb"
+          ) {
+            //mine die, bomb die
+
+            if (this.state.player === 1) {
+              whiteFallenSoldiers.push(squares[this.state.sourceSelection]);
+              blackFallenSoldiers.push(squares[i]);
+            } else if (this.state.player === 2) {
+              whiteFallenSoldiers.push(squares[i]);
+              blackFallenSoldiers.push(squares[this.state.sourceSelection]);
+            }
+
+            squares[i] = null;
+            squares[this.state.sourceSelection] = null;
+
+            this.updateThis(squares, whiteFallenSoldiers, blackFallenSoldiers);
+
+            return;
+          }
+
+          if (squares[i].type === "mine") {
+            //wrong selection, cant attack mine
+            return;
+          }
+
+          if (
+            squares[i].type === "bomb" ||
+            squares[this.state.sourceSelection] === "bomb"
+          ) {
+            if (this.state.player === 1) {
+              blackFallenSoldiers.push(squares[i]);
+              whiteFallenSoldiers.push(squares[this.state.sourceSelection]);
+            } else if (this.state.player === 2) {
+              blackFallenSoldiers.push(squares[this.state.sourceSelection]);
+              whiteFallenSoldiers.push(squares[i]);
+            }
+
+            squares[i] = null;
+            squares[this.state.sourceSelection] = null;
+
+            this.updateThis(squares, whiteFallenSoldiers, blackFallenSoldiers);
+          } else if (
+            squares[i].value === squares[this.state.sourceSelection].value
+          ) {
+            if (this.state.player === 1) {
+              blackFallenSoldiers.push(squares[i]);
+              whiteFallenSoldiers.push(squares[this.state.sourceSelection]);
+            } else if (this.state.player === 2) {
+              blackFallenSoldiers.push(squares[this.state.sourceSelection]);
+              whiteFallenSoldiers.push(squares[i]);
+            }
+
+            squares[i] = null;
+            squares[this.state.sourceSelection] = null;
+
+            this.updateThis(squares, whiteFallenSoldiers, blackFallenSoldiers);
+          } else if (
+            // initiates attack, wins
+            squares[i].value < squares[this.state.sourceSelection].value
+          ) {
+            if (this.state.player === 1) {
+              blackFallenSoldiers.push(squares[i]);
+            } else if (this.state.player === 2) {
+              whiteFallenSoldiers.push(squares[i]);
+            }
+
+            squares[i] = squares[this.state.sourceSelection];
+            squares[this.state.sourceSelection] = null;
+
+            this.updateThis(squares, whiteFallenSoldiers, blackFallenSoldiers);
+          } else if (
+            // initiates attack, loses
+            squares[i].value > squares[this.state.sourceSelection].value
+          ) {
+            if (this.state.player === 1) {
+              whiteFallenSoldiers.push(squares[this.state.sourceSelection]);
+            } else if (this.state.player === 2) {
+              blackFallenSoldiers.push(squares[this.state.sourceSelection]);
+            }
+
+            squares[this.state.sourceSelection] = null;
+
+            this.updateThis(squares, whiteFallenSoldiers, blackFallenSoldiers);
           }
         } else {
           // here is when your just moving

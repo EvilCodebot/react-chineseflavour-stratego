@@ -20,7 +20,16 @@ export default class General extends Piece {
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {
-    console.log("is move possible: " + squares);
+    console.log(src);
+    console.log(dest);
+    console.log(squares);
+
+    console.log(isSameDiagonal(src, dest));
+    console.log(isNotInSafeHouse(squares, dest));
+    console.log(isPathClean(squares[src].getSrcToDestPath(src, dest), squares));
+    console.log(squares[src].getSrcToDestPath(src, dest));
+    console.log("-------");
+
     return (
       isNotInSafeHouse(squares, dest) &&
       isPathClean(squares[src].getSrcToDestPath(src, dest), squares) &&
@@ -38,6 +47,11 @@ export default class General extends Piece {
    */
 
   getSrcToDestPath(src, dest) {
+    if (isSameDiagonal(src, dest)) {
+      // if isSameDiagonal, no path need to be checked
+      return [];
+    }
+
     let path = [],
       pathStart,
       pathEnd,
@@ -60,6 +74,7 @@ export default class General extends Piece {
     for (let i = pathStart; i < pathEnd; i += incrementBy) {
       path.push(i);
     }
+
     return path;
   }
 }

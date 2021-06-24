@@ -7,7 +7,7 @@ import {
   isNotInSafeHouse,
 } from "../helpers";
 
-export default class Miner extends Piece {
+export default class Engineer extends Piece {
   constructor(player) {
     super(
       player,
@@ -15,12 +15,11 @@ export default class Miner extends Piece {
         ? "https://upload.wikimedia.org/wikipedia/commons/2/28/Eo_circle_yellow_number-1.svg"
         : "https://upload.wikimedia.org/wikipedia/commons/f/fd/Eo_circle_blue_number-1.svg",
       1,
-      "a"
+      "engineer"
     );
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {
-    console.log("is move possible: " + squares);
     return (
       isNotInSafeHouse(squares, dest) &&
       isPathClean(squares[src].getSrcToDestPath(src, dest), squares) &&
@@ -38,6 +37,11 @@ export default class Miner extends Piece {
    */
 
   getSrcToDestPath(src, dest) {
+    if (isSameDiagonal(src, dest)) {
+      // if isSameDiagonal, no path need to be checked
+      return [];
+    }
+
     let path = [],
       pathStart,
       pathEnd,

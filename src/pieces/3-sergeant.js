@@ -20,7 +20,6 @@ export default class Sergeant extends Piece {
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {
-    console.log("is move possible: " + squares);
     return (
       isNotInSafeHouse(squares, dest) &&
       isPathClean(squares[src].getSrcToDestPath(src, dest), squares) &&
@@ -38,6 +37,11 @@ export default class Sergeant extends Piece {
    */
 
   getSrcToDestPath(src, dest) {
+    if (isSameDiagonal(src, dest)) {
+      // if isSameDiagonal, no path need to be checked
+      return [];
+    }
+
     let path = [],
       pathStart,
       pathEnd,

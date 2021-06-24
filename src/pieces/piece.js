@@ -1,9 +1,9 @@
 export default class Piece {
-  constructor(player, iconUrl, value, selector) {
+  constructor(player, iconUrl, value, type) {
     this.player = player;
     this.style = { backgroundImage: "url('" + iconUrl + "')" };
     this.value = value;
-    this.selector = selector;
+    this.type = type;
   }
 
   getPlayer() {
