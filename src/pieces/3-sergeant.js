@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redSergeant from "../svg/sergeant-red-3.svg";
+import greenSergeant from "../svg/sergeant-green-3.svg";
 
 export default class Sergeant extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/c/cc/Eo_circle_yellow_number-3.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/3/3e/Eo_circle_blue_number-3.svg",
-      3,
-      "a"
-    );
+    super(player, player === 1 ? redSergeant : greenSergeant, 3, "a");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

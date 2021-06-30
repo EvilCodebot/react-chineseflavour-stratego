@@ -1,7 +1,7 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
-  background-color: #ececea;
+  /* background-color: #ececea; */
 }
 
 ol,
@@ -21,7 +21,7 @@ ul {
 
 .square {
   background: transparent;
-  border: 1px solid transparent;
+  border: 1px solid;
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -53,11 +53,13 @@ ul {
 }
 
 .dark-square {
-  background-color: RGB(187, 190, 100);
+  /* background-color: RGB(187, 190, 100); */
+  background-color: RGB(255, 255, 255);
 }
 
 .light-square {
-  background-color: RGB(234, 240, 206);
+  /* background-color: RGB(234, 240, 206); */
+  background-color: RGB(255, 255, 255);
 }
 
 #player-turn-box {

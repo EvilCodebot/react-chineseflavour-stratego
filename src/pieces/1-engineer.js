@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redEngineer from "../svg/engineer-red-1.svg";
+import greenEngineer from "../svg/engineer-green-1.svg";
 
 export default class Engineer extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/2/28/Eo_circle_yellow_number-1.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/f/fd/Eo_circle_blue_number-1.svg",
-      1,
-      "engineer"
-    );
+    super(player, player === 1 ? redEngineer : greenEngineer, 1, "engineer");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

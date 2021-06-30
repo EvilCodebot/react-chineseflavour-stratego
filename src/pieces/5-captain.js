@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redCaptain from "../svg/captain-red-5.svg";
+import greenCaptain from "../svg/captain-green-5.svg";
 
 export default class Captain extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/f/f4/Eo_circle_yellow_number-5.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/b/ba/Eo_circle_blue_number-5.svg",
-      5,
-      "a"
-    );
+    super(player, player === 1 ? redCaptain : greenCaptain, 5, "a");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

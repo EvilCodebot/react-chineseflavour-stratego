@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redFlag from "../svg/flag-red.svg";
+import greenFlag from "../svg/flag-green.svg";
 
 export default class Flag extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/d/de/Eo_circle_yellow_white_letter-f.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/b/b1/Eo_circle_blue_white_letter-f.svg",
-      0,
-      "flag"
-    );
+    super(player, player === 1 ? redFlag : greenFlag, 0, "flag");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

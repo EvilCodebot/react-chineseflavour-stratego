@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redMarshal from "../svg/marshal-red-9.svg";
+import greenMarshal from "../svg/marshal-green-9.svg";
 
 export default class Marshal extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/c/c1/Eo_circle_yellow_number-9.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/1/15/Eo_circle_blue_number-9.svg",
-      9,
-      "a"
-    );
+    super(player, player === 1 ? redMarshal : greenMarshal, 9, "a");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

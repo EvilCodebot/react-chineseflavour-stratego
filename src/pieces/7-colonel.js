@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redColonel from "../svg/colonel-red-7.svg";
+import greenColonel from "../svg/colonel-green-7.svg";
 
 export default class Colonel extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/d/d8/Eo_circle_yellow_number-7.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/1/1c/Eo_circle_blue_number-7.svg",
-      7,
-      "a"
-    );
+    super(player, player === 1 ? redColonel : greenColonel, 7, "a");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

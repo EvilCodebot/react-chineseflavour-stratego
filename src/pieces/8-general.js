@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redGeneral from "../svg/general-red-8.svg";
+import greenGeneral from "../svg/general-green-8.svg";
 
 export default class General extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/7/76/Eo_circle_yellow_number-8.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/1/1b/Eo_circle_blue_number-8.svg",
-      8,
-      "a"
-    );
+    super(player, player === 1 ? redGeneral : greenGeneral, 8, "a");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

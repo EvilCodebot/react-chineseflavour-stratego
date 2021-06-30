@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redMine from "../svg/mine-red.svg";
+import greenMine from "../svg/mine-green.svg";
 
 export default class Mine extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/8/86/Eo_circle_yellow_white_letter-m.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/3/30/Eo_circle_blue_white_letter-m.svg",
-      0,
-      "mine"
-    );
+    super(player, player === 1 ? redMine : greenMine, 0, "mine");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

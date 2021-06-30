@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redCadet from "../svg/cadet-red-2.svg";
+import greenCadet from "../svg/cadet-green-2.svg";
 
 export default class Cadet extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/c/c7/Eo_circle_yellow_number-2.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/5/53/Eo_circle_blue_number-2.svg",
-      2,
-      "a"
-    );
+    super(player, player === 1 ? redCadet : greenCadet, 2, "a");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

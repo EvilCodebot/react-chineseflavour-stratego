@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redBomb from "../svg/bomb-red.svg";
+import greenBomb from "../svg/bomb-green.svg";
 
 export default class Bomb extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/d/dd/Eo_circle_yellow_white_letter-b.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/c/cd/Eo_circle_blue_white_letter-b.svg",
-      10,
-      "bomb"
-    );
+    super(player, player === 1 ? redBomb : greenBomb, 10, "bomb");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {

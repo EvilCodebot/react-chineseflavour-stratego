@@ -6,17 +6,12 @@ import {
   isPathClean,
   isNotInSafeHouse,
 } from "../helpers";
+import redMajor from "../svg/major-red-6.svg";
+import greenMajor from "../svg/major-green-6.svg";
 
 export default class Major extends Piece {
   constructor(player) {
-    super(
-      player,
-      player === 1
-        ? "https://upload.wikimedia.org/wikipedia/commons/e/ea/Eo_circle_yellow_number-6.svg"
-        : "https://upload.wikimedia.org/wikipedia/commons/b/bd/Eo_circle_blue_number-6.svg",
-      6,
-      "a"
-    );
+    super(player, player === 1 ? redMajor : greenMajor, 6, "a");
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {
