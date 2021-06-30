@@ -4,22 +4,68 @@ import Board from "./board.js";
 import FallenSoldierBlock from "./fallen-soldier-block.js";
 import initialiseChessBoard from "../helpers/board-initialiser.js";
 
+let openedSquares = Array(60).fill(false);
+
 export default class Game extends React.Component {
   constructor() {
     super();
     this.state = {
-      squares: initialiseChessBoard(),
+      squares: Array(60).fill(null),
+      ogSquares: initialiseChessBoard(),
       whiteFallenSoldiers: [],
       blackFallenSoldiers: [],
       player: 1,
       sourceSelection: -1,
       status: "",
-      turn: "white",
+      turn: "red",
     };
   }
 
   handleClick(i) {
     const squares = [...this.state.squares];
+
+    console.log(openedSquares);
+
+    //11, 13, 17，21 ,23, 36，38，42，46，48 these are safehouse
+    openedSquares[11] = true;
+    openedSquares[13] = true;
+    openedSquares[17] = true;
+    openedSquares[21] = true;
+    openedSquares[23] = true;
+    openedSquares[36] = true;
+    openedSquares[38] = true;
+    openedSquares[42] = true;
+    openedSquares[46] = true;
+    openedSquares[48] = true;
+
+    if (openedSquares[i] === false) {
+      squares[i] = this.state.ogSquares[i];
+
+      openedSquares[i] = true;
+
+      let player = this.state.player === 1 ? 2 : 1;
+      let turn = this.state.turn === "red" ? "green" : "red";
+      const whiteFallenSoldiers = [];
+      const blackFallenSoldiers = [];
+
+      this.setState((oldState) => ({
+        sourceSelection: -1,
+        squares,
+        whiteFallenSoldiers: [
+          ...oldState.whiteFallenSoldiers,
+          ...whiteFallenSoldiers,
+        ],
+        blackFallenSoldiers: [
+          ...oldState.blackFallenSoldiers,
+          ...blackFallenSoldiers,
+        ],
+        player,
+        status: "",
+        turn,
+      }));
+
+      return; // turn over baby
+    }
 
     if (this.state.sourceSelection === -1) {
       if (!squares[i] || squares[i].player !== this.state.player) {
@@ -28,7 +74,7 @@ export default class Game extends React.Component {
             "Wrong selection. Choose player " + this.state.player + " pieces.",
         });
         if (squares[i]) {
-          squares[i].style = { ...squares[i].style, backgroundColor: "" };
+          squares[i].style = { ...squares[i].style, backgroundColor: "" }; // think this clears the selection glow
         }
       } else {
         squares[i].style = {
@@ -170,9 +216,10 @@ export default class Game extends React.Component {
             return;
           }
 
+          // bomb checking, both destoryed
           if (
             squares[i].type === "bomb" ||
-            squares[this.state.sourceSelection] === "bomb"
+            squares[this.state.sourceSelection].type === "bomb"
           ) {
             if (this.state.player === 1) {
               blackFallenSoldiers.push(squares[i]);
@@ -248,7 +295,7 @@ export default class Game extends React.Component {
 
   updateThis(squares, whiteFallenSoldiers, blackFallenSoldiers) {
     let player = this.state.player === 1 ? 2 : 1;
-    let turn = this.state.turn === "white" ? "black" : "white";
+    let turn = this.state.turn === "red" ? "green" : "red";
 
     this.setState((oldState) => ({
       sourceSelection: -1,

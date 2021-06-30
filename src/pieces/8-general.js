@@ -15,16 +15,6 @@ export default class General extends Piece {
   }
 
   isMovePossible(src, dest, isDestEnemyOccupied, squares) {
-    console.log(src);
-    console.log(dest);
-    console.log(squares);
-
-    console.log(isSameDiagonal(src, dest));
-    console.log(isNotInSafeHouse(squares, dest));
-    console.log(isPathClean(squares[src].getSrcToDestPath(src, dest), squares));
-    console.log(squares[src].getSrcToDestPath(src, dest));
-    console.log("-------");
-
     return (
       isNotInSafeHouse(squares, dest) &&
       isPathClean(squares[src].getSrcToDestPath(src, dest), squares) &&
