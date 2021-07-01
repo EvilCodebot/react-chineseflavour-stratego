@@ -4,6 +4,12 @@ body {
   /* background-color: #ececea; */
 }
 
+
+img{
+  /* because bootstrap css introduce some weird rule, this overrides it */
+  vertical-align: baseline;
+}
+
 ol,
 ul {
   padding-left: 30px;
@@ -19,34 +25,64 @@ ul {
   margin-bottom: 10px;
 }
 
-.square {
+.game-board {
+  /* border: 1px solid;
+  height: 90vh;
+  width: 50vw; */
+}
+
+.circle {
   background: transparent;
   border: 1px solid;
-  float: left;
+  /* float: left; */
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 48px;
+
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 48px;
+
+  height: 30px;
+  width: 30px;
+
+  border-radius: 50%;
+}
+
+.square {
+  background: transparent;
+  border: 1px solid;
+  /* float: left; */
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+
+  height: 30px;
+  width: 30px;
 }
 
 .road {
   background: transparent;
 
-  float: left;
+  display: inline-block;
+  /* float: left; */
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 48px;
+
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 48px;
+
+  height: 30px;
+  width: 30px;
 }
 
 .square:focus {
@@ -63,7 +99,7 @@ ul {
 
 .game-status,
 .fallen-soldier-block {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   min-height: 50px;
 }
 

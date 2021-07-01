@@ -8,10 +8,24 @@ import LineHorizontal from "../svg/roads/line-horizontal.svg";
 import TrainHorizontal from "../svg/roads/train-horizontal.svg";
 import TrainVertical from "../svg/roads/train-vertical.svg";
 
+import Circle from "./circle.js";
+
 export default class Board extends React.Component {
   renderSquare(i, squareShade) {
     return (
       <Square
+        key={i}
+        keyVal={i}
+        style={this.props.squares[i] ? this.props.squares[i].style : null}
+        shade={squareShade}
+        onClick={() => this.props.onClick(i)}
+      />
+    );
+  }
+
+  renderCircle(i, squareShade) {
+    return (
+      <Circle
         key={i}
         keyVal={i}
         style={this.props.squares[i] ? this.props.squares[i].style : null}
@@ -109,8 +123,26 @@ export default class Board extends React.Component {
                 ? "light-square"
                 : "dark-square";
 
-            // console.log(c * 5 + d)
-            squareRows.push(this.renderSquare(c * 5 + d, squareShade));
+            // console.log(c * 5 + d);
+
+            //11, 13, 17，21 ,23, 36，38，42，46，48 these are safehouse
+            // if its safehouse render circle
+            if (
+              c * 5 + d === 11 ||
+              c * 5 + d === 13 ||
+              c * 5 + d === 17 ||
+              c * 5 + d === 21 ||
+              c * 5 + d === 23 ||
+              c * 5 + d === 36 ||
+              c * 5 + d === 38 ||
+              c * 5 + d === 42 ||
+              c * 5 + d === 46 ||
+              c * 5 + d === 48
+            ) {
+              squareRows.push(this.renderCircle(c * 5 + d, squareShade));
+            } else {
+              squareRows.push(this.renderSquare(c * 5 + d, squareShade));
+            }
           }
         }
       }
