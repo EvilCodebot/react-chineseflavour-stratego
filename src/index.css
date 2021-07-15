@@ -1,24 +1,12 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
-  /* background-color: #ececea; */
+  background-color: #ececea;
 }
 
-
-img{
-  /* because bootstrap css introduce some weird rule, this overrides it */
-  vertical-align: baseline;
-}
-
-ol,
-ul {
-  padding-left: 30px;
-}
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+img {
+  /* overrides bootstrap css rule */
+  /* vertical-align: baseline; */
 }
 
 .status {
@@ -26,63 +14,48 @@ ul {
 }
 
 .game-board {
-  /* border: 1px solid;
-  height: 90vh;
-  width: 50vw; */
+  width: 35vmin;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  margin: auto;
+  /* transform: rotate(90deg); */
 }
 
 .circle {
-  background: transparent;
   border: 1px solid;
-  /* float: left; */
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-
-  height: 30px;
-  width: 30px;
-
+  height: 0;
+  padding-bottom: 100%;
   border-radius: 50%;
 }
 
 .square {
-  background: transparent;
   border: 1px solid;
-  /* float: left; */
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-
-  height: 30px;
-  width: 30px;
+  height: 0;
+  padding-bottom: 100%;
+  /* transform: rotate(270deg); */
 }
 
-.road {
-  background: transparent;
+.road-img {
+  width: 100%;
+  height: 100%;
 
-  display: inline-block;
-  /* float: left; */
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
+  object-fit: cover;
+  object-position: center;
 
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
-  height: 30px;
-  width: 30px;
+.empty {
+  height: 0;
+  padding-bottom: 100%;
+}
+
+.road-container {
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
 }
 
 .square:focus {
@@ -99,18 +72,8 @@ ul {
 
 .game-status,
 .fallen-soldier-block {
-  /* margin-top: 20px; */
+  margin-top: 20px;
   min-height: 50px;
-}
-
-.dark-square {
-  /* background-color: RGB(187, 190, 100); */
-  background-color: RGB(255, 255, 255);
-}
-
-.light-square {
-  /* background-color: RGB(234, 240, 206); */
-  background-color: RGB(255, 255, 255);
 }
 
 #player-turn-box {

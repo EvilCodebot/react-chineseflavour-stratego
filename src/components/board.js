@@ -1,14 +1,13 @@
 import React from "react";
 import "../index.css";
 import Square from "./square.js";
+import Circle from "./circle.js";
 import LineDiagonalTLBR from "../svg/roads/line-diagonal-tlbr.svg";
 import LineDiagonalTRBL from "../svg/roads/line-diagonal-trbl.svg";
 import LineVertical from "../svg/roads/line-vertical.svg";
 import LineHorizontal from "../svg/roads/line-horizontal.svg";
 import TrainHorizontal from "../svg/roads/train-horizontal.svg";
 import TrainVertical from "../svg/roads/train-vertical.svg";
-
-import Circle from "./circle.js";
 
 export default class Board extends React.Component {
   renderSquare(i, squareShade) {
@@ -37,6 +36,7 @@ export default class Board extends React.Component {
 
   render() {
     const board = [];
+
     let c = -1;
     let e = -1; // for train horizontal
     let f = -1;
@@ -48,54 +48,84 @@ export default class Board extends React.Component {
         // if even draw roads
         f++;
 
-        // squareRows.push(<div className="emptyrow"></div>);
-
         if (f === 0 || f === 10) {
           for (let j = 1; j < 10; j++) {
             if (isEven(j)) {
-              squareRows.push(<div className="road"></div>);
+              board.push(<div className="empty"></div>);
             } else {
-              squareRows.push(<img className="road" src={LineVertical}></img>);
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineVertical}></img>
+                </div>
+              );
             }
           }
         } else if (f === 1 || f === 3 || f === 6 || f === 8) {
           for (let j = 1; j < 10; j++) {
             if (j === 1 || j === 9) {
-              squareRows.push(<img className="road" src={TrainVertical}></img>);
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={TrainVertical}></img>
+                </div>
+              );
             } else if (j === 2 || j === 6) {
-              squareRows.push(
-                <img className="road" src={LineDiagonalTLBR}></img>
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineDiagonalTLBR}></img>
+                </div>
               );
             } else if (j === 4 || j === 8) {
-              squareRows.push(
-                <img className="road" src={LineDiagonalTRBL}></img>
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineDiagonalTRBL}></img>
+                </div>
               );
             } else {
-              squareRows.push(<img className="road" src={LineVertical}></img>);
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineVertical}></img>
+                </div>
+              );
             }
           }
         } else if (f === 2 || f === 4 || f === 7 || f === 9) {
           for (let j = 1; j < 10; j++) {
             if (j === 1 || j === 9) {
-              squareRows.push(<img className="road" src={TrainVertical}></img>);
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={TrainVertical}></img>
+                </div>
+              );
             } else if (j === 2 || j === 6) {
-              squareRows.push(
-                <img className="road" src={LineDiagonalTRBL}></img>
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineDiagonalTRBL}></img>
+                </div>
               );
             } else if (j === 4 || j === 8) {
-              squareRows.push(
-                <img className="road" src={LineDiagonalTLBR}></img>
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineDiagonalTLBR}></img>
+                </div>
               );
             } else {
-              squareRows.push(<img className="road" src={LineVertical}></img>);
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineVertical}></img>
+                </div>
+              );
             }
           }
         } else if (f === 5) {
           for (let j = 1; j < 10; j++) {
             if (j === 1 || j === 5 || j === 9) {
-              squareRows.push(<img className="road" src={TrainVertical}></img>);
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={TrainVertical}></img>
+                </div>
+              );
             } else {
-              squareRows.push(<div className="road"></div>);
+              board.push(<div className="empty"></div>);
             }
           }
         }
@@ -107,12 +137,16 @@ export default class Board extends React.Component {
         for (let j = 1; j < 10; j++) {
           if (isEven(j)) {
             if (e === 1 || e === 5 || e === 6 || e === 10) {
-              squareRows.push(
-                <img className="road" src={TrainHorizontal}></img>
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={TrainHorizontal}></img>
+                </div>
               );
             } else {
-              squareRows.push(
-                <img className="road" src={LineHorizontal}></img>
+              board.push(
+                <div className="road-container">
+                  <img className="road-img" src={LineHorizontal}></img>
+                </div>
               );
             }
           } else {
@@ -122,8 +156,6 @@ export default class Board extends React.Component {
               (isEven(i) && isEven(j)) || (!isEven(i) && !isEven(j))
                 ? "light-square"
                 : "dark-square";
-
-            // console.log(c * 5 + d);
 
             //11, 13, 17，21 ,23, 36，38，42，46，48 these are safehouse
             // if its safehouse render circle
@@ -139,21 +171,15 @@ export default class Board extends React.Component {
               c * 5 + d === 46 ||
               c * 5 + d === 48
             ) {
-              squareRows.push(this.renderCircle(c * 5 + d, squareShade));
+              board.push(this.renderCircle(c * 5 + d, squareShade));
             } else {
-              squareRows.push(this.renderSquare(c * 5 + d, squareShade));
+              board.push(this.renderSquare(c * 5 + d, squareShade));
             }
           }
         }
       }
-
-      board.push(
-        <div className="board-row" key={i}>
-          {squareRows}
-        </div>
-      );
     }
-    return <div>{board}</div>;
+    return <div className="game-board">{board}</div>;
   }
 }
 

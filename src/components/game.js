@@ -7,6 +7,8 @@ import initialiseChessBoard from "../helpers/board-initialiser.js";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
+import QuestionMark from "../pieces/question-mark";
+
 let openedSquares = Array(60).fill(false);
 
 function displayRulePage(page) {
@@ -105,11 +107,31 @@ function MyVerticallyCenteredModal(props) {
   );
 }
 
+function initializeQuestionMark() {
+  let unFlippedArray = Array(60).fill(new QuestionMark(1));
+
+  //11, 13, 17，21 ,23, 36，38，42，46，48 these are safehouse thus don't display
+  unFlippedArray[11] = null;
+  unFlippedArray[13] = null;
+  unFlippedArray[17] = null;
+  unFlippedArray[21] = null;
+  unFlippedArray[23] = null;
+  unFlippedArray[36] = null;
+  unFlippedArray[38] = null;
+  unFlippedArray[42] = null;
+  unFlippedArray[46] = null;
+  unFlippedArray[48] = null;
+
+  console.log(unFlippedArray);
+
+  return unFlippedArray;
+}
+
 export default class Game extends React.Component {
   constructor() {
     super();
     this.state = {
-      squares: Array(60).fill(null),
+      squares: initializeQuestionMark(),
       ogSquares: initialiseChessBoard(),
       whiteFallenSoldiers: [],
       blackFallenSoldiers: [],
@@ -126,7 +148,10 @@ export default class Game extends React.Component {
   handleClick(i) {
     const squares = [...this.state.squares];
 
+    console.log(squares);
+
     //11, 13, 17，21 ,23, 36，38，42，46，48 these are safehouse
+
     openedSquares[11] = true;
     openedSquares[13] = true;
     openedSquares[17] = true;
@@ -442,13 +467,12 @@ export default class Game extends React.Component {
         />
 
         <div className="game">
-          <div className="game-board">
-            <Board
-              squares={this.state.squares}
-              onClick={(i) => this.handleClick(i)}
-            />
-          </div>
-          <div className="game-info">
+          <Board
+            squares={this.state.squares}
+            onClick={(i) => this.handleClick(i)}
+          />
+
+          {/* <div className="game-info">
             <h3>Turn</h3>
             <div
               id="player-turn-box"
@@ -464,7 +488,7 @@ export default class Game extends React.Component {
                 />
               }
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     );
