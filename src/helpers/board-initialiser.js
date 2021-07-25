@@ -7,12 +7,31 @@ import Major from "../pieces/6-major";
 import Colonel from "../pieces/7-colonel";
 import General from "../pieces/8-general";
 import Marshal from "../pieces/9-marshal";
-
 import Bomb from "../pieces/bomb";
 import Flag from "../pieces/flag";
 import Mine from "../pieces/mine";
+import QuestionMark from "../pieces/question-mark";
 
-export default function initialiseChessBoard() {
+// Question mark icon used to indicate square is not Flipped
+function initialiseUnFlippedSquares() {
+  let unFlippedArray = Array(60).fill(new QuestionMark(1));
+
+  //11, 13, 17，21 ,23, 36，38，42，46，48 are safehouses and no piece are spawned there at the start of the game
+  unFlippedArray[11] = null;
+  unFlippedArray[13] = null;
+  unFlippedArray[17] = null;
+  unFlippedArray[21] = null;
+  unFlippedArray[23] = null;
+  unFlippedArray[36] = null;
+  unFlippedArray[38] = null;
+  unFlippedArray[42] = null;
+  unFlippedArray[46] = null;
+  unFlippedArray[48] = null;
+
+  return unFlippedArray;
+}
+
+function initialiseChessBoard() {
   const squares = Array(60).fill(null);
 
   // fill array up with units, thus ensuring the correct number of each unit
@@ -99,6 +118,7 @@ export default function initialiseChessBoard() {
       squares[j] = temp;
     }
   }
-
   return squares;
 }
+
+export { initialiseUnFlippedSquares, initialiseChessBoard };

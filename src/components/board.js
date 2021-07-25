@@ -15,7 +15,11 @@ export default class Board extends React.Component {
       <Square
         key={i}
         keyVal={i}
-        style={this.props.squares[i] ? this.props.squares[i].style : null}
+        style={
+          this.props.unflippedSquares[i]
+            ? this.props.unflippedSquares[i].style
+            : null
+        }
         shade={squareShade}
         onClick={() => this.props.onClick(i)}
       />
@@ -27,7 +31,11 @@ export default class Board extends React.Component {
       <Circle
         key={i}
         keyVal={i}
-        style={this.props.squares[i] ? this.props.squares[i].style : null}
+        style={
+          this.props.unflippedSquares[i]
+            ? this.props.unflippedSquares[i].style
+            : null
+        }
         shade={squareShade}
         onClick={() => this.props.onClick(i)}
       />
